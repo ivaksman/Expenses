@@ -1,0 +1,28 @@
+.page {
+	margin: 100px auto 0px auto;
+	width: 400px;
+}
+
+.formbox {
+	padding: 15px;
+	border:1px solid gray;
+	border-radius: 7px;
+	box-shadow: 1px 1px 1px gray
+}
+
+.formbox input[type="text"], .formbox input[type="password"] {
+	width: 100%;
+	padding: 5px;
+}
+
+.formbox input[type="button"], .formbox input[type="submit"] {
+	cursor: pointer;
+}
+
+.formbox .spacer {
+	margin-bottom: 10px;
+}
+
+.formbox .errors {
+	float:right;font-size:12px;line-height:12px;color:red
+}
