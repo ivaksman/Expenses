@@ -1,0 +1,129 @@
+<html>
+
+<head>
+
+<link rel="stylesheet" href="main.css" />
+
+</head>
+
+<body>
+
+<form class="page formbox" id="pagelogin" name="pagelogin">
+
+<div class="spacer">
+<input type="text" placeholder="User Name" name="email" />
+</div>
+<div class="spacer">
+<input type="password" placeholder="Password" name="password" />
+</div>
+<div style="float:left">
+<div class="spacer">
+<input type="button" value="Log In" onclick="loadmain()"/>
+<input type="button" value="New User" onclick="loadnewuser()"/>
+</div>
+<span style="font-size:12px;line-height:12px;color:gray">Forgot Password?</span>
+</div>
+<div class="errors" id="errors" style="float:right">
+</div>
+<br style="clear:both"/>
+
+</form>
+
+<form class="page formbox" id="pagenewuser" name="pagenewuser">
+
+<div class="spacer">
+<input type="text" placeholder="Email Address" name="email" />
+</div>
+<div class="spacer">
+<input type="password" placeholder="Password" name="password" />
+</div>
+<div class="spacer">
+<input type="password" placeholder="Confirm Password" name="password2" />
+</div>
+<div class="spacer">
+<div style="float:left">
+<input type="button" value="Register" onclick="loadnewuser2()"/>
+</div>
+<div class="errors" id="errors">
+</div>
+<br style="clear:both"/>
+</div>
+
+
+</form>
+
+<div class="page" id="pagenewuser2">
+User created
+</div>
+
+<form class="page formbox" id="pagemain" name="pagemain">
+<div style="float: left">
+Expenses
+</div>
+<div style="float: right">
+<div id="pagemain_username" name="username" value="sfd">
+Name
+</div>
+</div>
+<br style="clear:both"/>
+</form>
+
+<script>
+
+function loadpage(pagename) {
+	var pages=document.getElementsByClassName("page");
+
+	for(var a=0; a < pages.length; a++) {
+		if(pages[a].id != pagename)
+			pages[a].style.display = 'none';
+	}
+
+	document.getElementById(pagename).style.display = 'block';
+}
+
+function loadnewuser() {
+	loadpage("pagenewuser");
+}
+
+function loadprofile(user) {
+	document.getElementById("pagemain_username").innerHTML = user.email;
+}
+
+function loadnewuser2() {
+	var email = pagenewuser.email.value;
+	var password = pagenewuser.password.value;
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			loadprofile(JSON.parse(xhttp.responseText));
+			loadpage("pagemain");
+		}
+	};
+
+	xhttp.open("GET", "register?email=" + email + "&password=" + password, true);
+	xhttp.send();
+}
+
+function loadmain() {
+	var email = pagelogin.email.value;
+	var password = pagelogin.password.value;
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			loadprofile(JSON.parse(xhttp.responseText));
+			loadpage("pagemain");
+		}
+	};
+
+	xhttp.open("GET", "login?email=" + email + "&password=" + password, true);
+	xhttp.send();
+}
+
+loadpage("pagelogin");
+
+</script>
+
+</body>
+</html>
